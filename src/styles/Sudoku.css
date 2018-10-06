@@ -1,0 +1,97 @@
+html {
+    color: #fff;
+    --thick-border: solid 3px #fff;
+    --inner-border: solid 1px #f2f2f2;
+    text-align: center;
+}
+
+html,
+body,
+#root {
+    height: 100%;
+}
+
+html *:focus,
+html *:active,
+{
+    outline: none;
+}
+
+.App {
+    height: 100%;
+}
+
+.sudoku-wrapper {
+    padding-top: 10vh;
+}
+
+.sudoku-table {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    height: 50vh;
+    width: 50vh;
+    margin: 0 auto 3rem auto;
+    align-items: center;
+    border: var(--thick-border);
+}
+
+.sudoku-table .cell {
+    height: calc(100% - 1px);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: var(--inner-border);
+    border-bottom: var(--inner-border);
+}
+
+.cell.border-right {
+    border-right: var(--thick-border);
+}
+
+.cell.border-bottom {
+    border-bottom: var(--thick-border);
+}
+
+.cell input {
+    border: none;
+    height: 100%;
+    width: 100%;
+    color: #fff;
+    text-align: center;
+    background: transparent;
+}
+
+.cell input:focus {
+    outline-color: #fff;
+}
+
+.sudoku-wrapper select,
+.sudoku-wrapper button  {
+    appearance: none;
+    border-radius: 0;
+    border: solid 1px #fff;
+    height: 3rem;
+    width: 6rem;
+    color: #fff;
+    background: transparent;
+    text-transform: uppercase;
+    text-align-last: center;
+    transition: ease 0.2s;
+    margin: 0 1rem;
+    text-align: -webkit-center;
+}
+
+.sudoku-wrapper button:hover,
+.sudoku-wrapper select:hover {
+    background: #fff;
+    color: #000;
+    mix-blend-mode: screen;
+}
+
+
+.sudoku-wrapper select:focus,
+.sudoku-wrapper button:focus {
+    outline: none;
+}
