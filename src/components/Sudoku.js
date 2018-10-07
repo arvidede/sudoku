@@ -1,71 +1,71 @@
-import React, { Component } from "react";
-import "../styles/Sudoku.css";
+import React, { Component } from 'react'
+import '../styles/Sudoku.css'
 
 export class Sudoku extends Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
             table: [],
-            selectedDifficulty: "easy",
+            selectedDifficulty: 'easy',
             options: [
-                "easy",
-                "medium",
-                "hard",
-                "very-hard",
-                "insane",
-                "inhuman"
+                'easy',
+                'medium',
+                'hard',
+                'very-hard',
+                'insane',
+                'inhuman'
             ]
-        };
+        }
     }
 
-    splitAt = (index, x) => x.slice(index - 9, index);
+    componentDidMount() {
+        this.generateTable()
+    }
+
+    splitAt = (index, x) => x.slice(index - 9, index)
 
     generateTable = () => {
         const sudokuString = window.sudoku.generate(
             this.state.selectedDifficulty
-        );
-        const table = Array(9).fill(".");
+        )
+        const table = Array(9).fill('.')
         for (let i = 0; i < table.length; i++) {
-            const row = [...this.splitAt(9 * (i + 1), sudokuString)];
+            const row = [...this.splitAt(9 * (i + 1), sudokuString)]
             table[i] = row.map(cell => {
-                if (cell !== ".") {
+                if (cell !== '.') {
                     return {
                         value: cell,
                         isStartValue: true,
-                        className: ""
-                    };
+                        className: ''
+                    }
                 }
                 return {
-                    value: "",
+                    value: '',
                     isStartValue: false,
-                    className: ""
-                };
-            });
+                    className: ''
+                }
+            })
         }
-        this.setState({ table }, this.generateClassNames);
-    };
-
-    componentDidMount() {
-        this.generateTable();
+        this.setState({ table }, this.generateClassNames)
     }
 
     generateClassNames = () => {
-        const { table } = this.state;
+        const { table } = this.state
 
         for (let i = 0; i < table.length; i++) {
             for (let j = 0; j < table[i].length; j++) {
                 table[i][j].className =
                     (j + 1) % 3 === 0 && (j + 1) % 9 !== 0
                         ? (i + 1) % 3 === 0 && (i + 1) % 9 !== 0
-                            ? "cell border-right border-bottom"
-                            : "cell border-right"
+                            ? 'cell border-right border-bottom'
+                            : 'cell border-right'
                         : (i + 1) % 3 === 0 && (i + 1) % 9 !== 0
-                            ? "cell border-bottom"
-                            : "cell";
+                            ? 'cell border-bottom'
+                            : 'cell'
             }
         }
-        this.setState({ table });
-    };
+        this.setState({ table })
+    }
 
     handleDifficulty = event => {
         this.setState(
@@ -73,61 +73,61 @@ export class Sudoku extends Component {
                 selectedDifficulty: event.target.value
             },
             this.generateTable
-        );
-    };
+        )
+    }
 
     handleNewGame = () => {
-        this.generateTable();
-        this.props.onColorChange();
-    };
+        this.generateTable()
+        this.props.onColorChange()
+    }
 
     validateGameOver = () => {
-        const { table } = this.state;
-        if (table.every(row => row.every(cell => cell.value !== ""))) {
+        const { table } = this.state
+        if (table.every(row => row.every(cell => cell.value !== ''))) {
             this.props.handleGameOver()
         }
-    };
+    }
 
     handleCellChange = (value, row, column) => {
-        const val = parseInt(value.slice(-1), 10);
+        const val = parseInt(value.slice(-1), 10)
         if (val && this.validate(value.slice(-1), row, column)) {
-            const { table } = this.state;
-            table[row][column].value = value.slice(-1);
-            this.setState({ table }, this.validateGameOver);
-        } else if (value === "") {
-            const { table } = this.state;
-            table[row][column].value = value;
-            this.setState({ table });
+            const { table } = this.state
+            table[row][column].value = value.slice(-1)
+            this.setState({ table }, this.validateGameOver)
+        } else if (value === '') {
+            const { table } = this.state
+            table[row][column].value = value
+            this.setState({ table })
         }
-    };
+    }
 
     validate = (value, row, column) => {
-        const { table } = this.state;
+        const { table } = this.state
 
         if (!table[row].every(cell => cell.value !== value)) {
-            return false;
+            return false
         }
 
         for (let i = 0; i < table.length; i++) {
             if (table[i][column].value === value) {
-                return false;
+                return false
             }
         }
 
-        const area = this.getArea(row, column);
-        const cells = 3;
+        const area = this.getArea(row, column)
+        const cells = 3
         for (let i = cells * area[0]; i < cells * (area[0] + 1); i++) {
             for (let j = cells * area[1]; j < cells * (area[1] + 1); j++) {
-                console.log(table[i][j]);
+                console.log(table[i][j])
                 if (table[i][j].value === value) {
-                    return false;
+                    return false
                 }
             }
         }
-        return true;
-    };
+        return true
+    }
 
-    getArea = (row, column) => [Math.floor(row / 3), Math.floor(column / 3)];
+    getArea = (row, column) => [Math.floor(row / 3), Math.floor(column / 3)]
 
     render() {
         return (
@@ -161,6 +161,6 @@ export class Sudoku extends Component {
                     ))}
                 </select>
             </div>
-        );
+        )
     }
 }

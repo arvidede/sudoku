@@ -6,7 +6,7 @@ export class Clock extends Component {
         this.state = {
             hours: 0,
             minutes: 0,
-            seconds: 0
+            seconds: 58
         };
         this.interval = setInterval(this.updateTime, 1000);
     }
@@ -23,7 +23,7 @@ export class Clock extends Component {
                 seconds: seconds === 59 ? 0 : seconds + 1,
                 minutes:
                     seconds === 59
-                        ? seconds === 59 ? 0 : minutes + 1
+                        ? minutes === 59 ? 0 : minutes + 1
                         : minutes,
                 hours: minutes === 59 && seconds === 59 ? hours + 1 : hours
             });
