@@ -68,12 +68,7 @@ html *:active,
 }
 
 .sudoku-wrapper select {
-    text-align-last: center;
-    text-align: center;
-    -ms-text-align-last: center;
-    -moz-text-align-last: center;
-    text-align-last: center;
-    -webkit-appearance: none;
+    padding-left: 32px;
 }
 
 .sudoku-wrapper select,
@@ -86,7 +81,6 @@ html *:active,
     color: #fff;
     background: transparent;
     text-transform: uppercase;
-    text-align-last: center;
     transition: ease 0.2s;
     margin: 0 1rem;
 }
